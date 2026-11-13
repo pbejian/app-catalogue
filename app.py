@@ -27,5 +27,8 @@ selection = selection[selection["prix_gbp"] <= prix_max]
 if recherche:
     selection = selection[selection["titre"].str.contains(recherche, case=False)]
 
-st.write(len(selection), "livres retenus sur", len(df))   # provisoire    
-
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Livres retenus", len(selection))
+col2.metric("Prix moyen", f"{selection['prix_gbp'].mean():.2f} GBP")
+col3.metric("Note moyenne", f"{selection['note'].mean():.2f} / 5")
+col4.metric("Stock total", selection["stock"].sum())
