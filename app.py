@@ -14,4 +14,18 @@ st.caption("Donnees collectées sur books.toscrape.com")
 
 df = charger_donnees(FICHIER)
 
-st.write("Lignes :", len(df))   # provisoire, a supprimer a l'etape 3
+with st.sidebar:
+    st.header("Filtres")
+    note_mini = st.slider("Note minimale", 1, 5, 1)
+    prix_min, prix_max = st.slider("Fourchette de prix", 0.0, 60.0, (0.0, 60.0))
+    recherche = st.text_input("Le titre contient")
+
+selection = df.copy()
+selection = selection[selection["note"] >= note_mini]
+selection = selection[selection["prix_gbp"] >= prix_min]
+selection = selection[selection["prix_gbp"] <= prix_max]
+if recherche:
+    selection = selection[selection["titre"].str.contains(recherche, case=False)]
+
+st.write(len(selection), "livres retenus sur", len(df))   # provisoire    
+
