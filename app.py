@@ -47,4 +47,5 @@ else:
         st.subheader("Les 5 moins chers")
         st.dataframe(selection.nsmallest(5, "prix_gbp")[["titre", "prix_gbp"]])
 
-        
+with st.expander("Voir les données brutes"):
+    st.dataframe(df)
